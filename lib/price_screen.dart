@@ -68,92 +68,100 @@ class _PriceScreenState extends State<PriceScreen> {
       appBar: AppBar(
         title: Text('coin ticker'),
       ),
-      body: isLoading
-          ? Center(child: CircularProgressIndicator())
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0.0),
-                  child: Card(
-                    color: Colors.lightBlueAccent,
-                    elevation: 5.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 15.0, horizontal: 10.0),
-                      child: Text(
-                        '1 $selectedCryptoCurrency = $valueInConvertedCurrency $selectedCurrency',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          color: Colors.white,
-                        ),
+      body: Stack(
+        children: [
+          Visibility(
+            visible: isLoading,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0.0),
+                child: Card(
+                  color: Colors.lightBlueAccent,
+                  elevation: 5.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                    child: Text(
+                      '1 $selectedCryptoCurrency = $valueInConvertedCurrency $selectedCurrency',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.white,
                       ),
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      height: 150.0,
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.only(bottom: 30.0),
-                      color: Colors.blue[700],
-                      child: DropdownButton<String>(
-                        dropdownColor: Colors.deepPurple[200],
-                        iconSize: 60.0,
-                        iconEnabledColor: Colors.green[200],
-                        value: selectedCryptoCurrency,
-                        items: getDropdownItemsCryptocurrency(),
-                        onChanged: (value) async {
-                          selectedCryptoCurrency = value;
-                          isLoading = true;
-                          setState(() {});
-                          double accurateValue = await coinData.getCoinPrice(
-                              selectedCryptoCurrency, selectedCurrency);
-                          valueInConvertedCurrency =
-                              double.parse((accurateValue).toStringAsFixed(2))
-                                  .toString();
-                          isLoading = false;
-                          setState(() {});
-                        },
-                      ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 150.0,
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.only(bottom: 30.0),
+                    color: Colors.blue[700],
+                    child: DropdownButton<String>(
+                      dropdownColor: Colors.deepPurple[200],
+                      iconSize: 60.0,
+                      iconEnabledColor: Colors.green[200],
+                      value: selectedCryptoCurrency,
+                      items: getDropdownItemsCryptocurrency(),
+                      onChanged: (value) async {
+                        selectedCryptoCurrency = value;
+                        isLoading = true;
+                        setState(() {});
+                        double accurateValue = await coinData.getCoinPrice(
+                            selectedCryptoCurrency, selectedCurrency);
+                        valueInConvertedCurrency =
+                            double.parse((accurateValue).toStringAsFixed(2))
+                                .toString();
+                        isLoading = false;
+                        setState(() {});
+                      },
                     ),
-                    Container(
-                      height: 150.0,
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.only(bottom: 30.0),
-                      color: Colors.blue[700],
-                      child: DropdownButton<String>(
-                        dropdownColor: Colors.deepPurple[200],
-                        iconSize: 60.0,
-                        iconEnabledColor: Colors.green[200],
-                        value: selectedCurrency,
-                        items: getDropdownItems(),
-                        onChanged: (value) async {
-                          selectedCurrency = value;
-                          isLoading = true;
-                          setState(() {});
-                          double accurateValue = await coinData.getCoinPrice(
-                              selectedCryptoCurrency, selectedCurrency);
-                          valueInConvertedCurrency =
-                              double.parse((accurateValue).toStringAsFixed(2))
-                                  .toString();
+                  ),
+                  Container(
+                    height: 150.0,
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.only(bottom: 30.0),
+                    color: Colors.blue[700],
+                    child: DropdownButton<String>(
+                      dropdownColor: Colors.deepPurple[200],
+                      iconSize: 60.0,
+                      iconEnabledColor: Colors.green[200],
+                      value: selectedCurrency,
+                      items: getDropdownItems(),
+                      onChanged: (value) async {
+                        selectedCurrency = value;
+                        isLoading = true;
+                        setState(() {});
+                        double accurateValue = await coinData.getCoinPrice(
+                            selectedCryptoCurrency, selectedCurrency);
+                        valueInConvertedCurrency =
+                            double.parse((accurateValue).toStringAsFixed(2))
+                                .toString();
 
-                          isLoading = false;
-                          setState(() {});
-                        },
-                      ),
+                        isLoading = false;
+                        setState(() {});
+                      },
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
