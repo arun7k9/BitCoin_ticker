@@ -1,5 +1,6 @@
 import 'package:bitcoin_ticker/coin_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class PriceScreen extends StatefulWidget {
   @override
@@ -65,15 +66,24 @@ class _PriceScreenState extends State<PriceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.green[100],
       appBar: AppBar(
-        title: Text('coin ticker'),
+        backgroundColor: Color(0xFF00787A),
+        title: Text(
+          'Bitcoin Ticker',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
       ),
       body: Stack(
         children: [
           Visibility(
             visible: isLoading,
             child: Center(
-              child: CircularProgressIndicator(),
+              child: SpinKitPouringHourglass(
+                color: Colors.green,
+                size: 50.0,
+              ),
             ),
           ),
           Column(
@@ -83,7 +93,7 @@ class _PriceScreenState extends State<PriceScreen> {
               Padding(
                 padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0.0),
                 child: Card(
-                  color: Colors.lightBlueAccent,
+                  color: Colors.green[500],
                   elevation: 5.0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
@@ -103,17 +113,33 @@ class _PriceScreenState extends State<PriceScreen> {
                 ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    height: 150.0,
+                    margin: EdgeInsets.fromLTRB(
+                      20.0,
+                      0.0,
+                      10.0,
+                      60.0,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xFF007939),
+                          Color(0xFF94ebd8),
+                        ],
+                      ),
+                    ),
                     alignment: Alignment.center,
-                    padding: EdgeInsets.only(bottom: 30.0),
-                    color: Colors.blue[700],
+                    padding:
+                        EdgeInsets.symmetric(vertical: 7.0, horizontal: 20.0),
                     child: DropdownButton<String>(
-                      dropdownColor: Colors.deepPurple[200],
+                      dropdownColor: Color(0xFF004344),
                       iconSize: 60.0,
-                      iconEnabledColor: Colors.green[200],
+                      iconEnabledColor: Colors.white,
                       value: selectedCryptoCurrency,
                       items: getDropdownItemsCryptocurrency(),
                       onChanged: (value) async {
@@ -131,14 +157,30 @@ class _PriceScreenState extends State<PriceScreen> {
                     ),
                   ),
                   Container(
-                    height: 150.0,
+                    margin: EdgeInsets.fromLTRB(
+                      10.0,
+                      0.0,
+                      20.0,
+                      60.0,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xFF007939),
+                          Color(0xFF94ebd8),
+                        ],
+                      ),
+                    ),
                     alignment: Alignment.center,
-                    padding: EdgeInsets.only(bottom: 30.0),
-                    color: Colors.blue[700],
+                    padding:
+                        EdgeInsets.symmetric(vertical: 7.0, horizontal: 20.0),
                     child: DropdownButton<String>(
-                      dropdownColor: Colors.deepPurple[200],
+                      dropdownColor: Color(0xFF004344),
                       iconSize: 60.0,
-                      iconEnabledColor: Colors.green[200],
+                      iconEnabledColor: Colors.white,
                       value: selectedCurrency,
                       items: getDropdownItems(),
                       onChanged: (value) async {
