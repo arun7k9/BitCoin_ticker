@@ -12,7 +12,12 @@ class _PriceScreenState extends State<PriceScreen> {
   bool isLoading = false;
   String selectedCurrency = 'USD';
   String selectedCryptoCurrency = 'BTC';
+  String selectedCryptoCurrency2 = 'ETH';
+  String selectedCryptoCurrency3 = 'LTC';
   String valueInConvertedCurrency = '';
+  String valueInConvertedCurrency2 = '';
+  String valueInConvertedCurrency3 = '';
+
   List<DropdownMenuItem> getDropdownItems() {
     List<DropdownMenuItem<String>> dropdownItems = [];
     for (int i = 0; i < currenciesList.length; i++) {
@@ -50,6 +55,14 @@ class _PriceScreenState extends State<PriceScreen> {
         await coinData.getCoinPrice(selectedCryptoCurrency, selectedCurrency);
     valueInConvertedCurrency =
         double.parse((accurateValue).toStringAsFixed(2)).toString();
+    double accurateValue2 =
+        await coinData.getCoinPrice(selectedCryptoCurrency2, selectedCurrency);
+    valueInConvertedCurrency2 =
+        double.parse((accurateValue2).toStringAsFixed(2)).toString();
+    double accurateValue3 =
+        await coinData.getCoinPrice(selectedCryptoCurrency3, selectedCurrency);
+    valueInConvertedCurrency3 =
+        double.parse((accurateValue3).toStringAsFixed(2)).toString();
     isLoading = false;
     if (mounted) {
       setState(() {});
@@ -91,7 +104,7 @@ class _PriceScreenState extends State<PriceScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
-                padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0.0),
+                padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 20.0),
                 child: Card(
                   color: Colors.green[500],
                   elevation: 5.0,
@@ -103,6 +116,50 @@ class _PriceScreenState extends State<PriceScreen> {
                         EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
                     child: Text(
                       '1 $selectedCryptoCurrency = $valueInConvertedCurrency $selectedCurrency',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 20.0),
+                child: Card(
+                  color: Colors.green[500],
+                  elevation: 5.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                    child: Text(
+                      '1 $selectedCryptoCurrency2 = $valueInConvertedCurrency2 $selectedCurrency',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 20.0),
+                child: Card(
+                  color: Colors.green[500],
+                  elevation: 5.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                    child: Text(
+                      '1 $selectedCryptoCurrency3 = $valueInConvertedCurrency3 $selectedCurrency',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 20.0,
